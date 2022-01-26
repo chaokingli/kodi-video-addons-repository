@@ -7,6 +7,7 @@
                name="Video Add-ons">
         <info compressed="true">https://github.com/chaokingli/kodi-video-addons-repository/raw/main/addons.xml
         </info>
+        <checksum>https://github.com/chaokingli/kodi-video-addons-repository/raw/main/addons.xml.md5</checksum>
         <datadir zip="true">https://github.com/chaokingli/kodi-video-addons-repository/raw/main/repository</datadir>
     </extension>
     <extension point="xbmc.addon.metadata">
