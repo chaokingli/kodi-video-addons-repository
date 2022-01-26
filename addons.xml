@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addons>
+    <addon id="plugin.video.olevodplayer"
+           name="olevodplayer"
+           version="1.0.0"
+           provider-name="C.K.">
+        <requires>
+            <import addon="xbmc.python" version="3.0.0"/>
+            <import addon="script.module.beautifulsoup4" version="4.9.3"/>
+            <import addon="script.module.requests" version="2.25.1"/>
+        </requires>
+        <extension point="xbmc.python.pluginsource" library="main.py">
+            <provides>video</provides>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+            <platform>all</platform>
+            <summary>XBMC Player for olevod.com</summary>
+            <description>KODI Addon for olevod.com</description>
+            <disclaimer>For personal use only</disclaimer>
+        </extension>
+    </addon>
+    <addon id="repository.kodi-video-addons"
+           name="Video Add-ons"
+           version="1.0.0"
+           provider-name="chaokingli">
+        <extension point="xbmc.addon.repository"
+                   name="Video Add-ons">
+            <info compressed="true">https://github.com/chaokingli/kodi-video-addons-repository/raw/main/addons.xml
+            </info>
+            <datadir zip="true">https://github.com/chaokingli/kodi-video-addons-repository/raw/main/repository</datadir>
+        </extension>
+        <extension point="xbmc.addon.metadata">
+            <summary>Video Add-ons Repository</summary>
+            <description>Download and install add-ons from video addon repository. And You can get the Video Addons
+                Update
+            </description>
+            <disclaimer>chaokingli did not make all the add-ons on this repository and is not responsible for their
+                content
+            </disclaimer>
+            <platform>all</platform>
+        </extension>
+    </addon>
+</addons>
