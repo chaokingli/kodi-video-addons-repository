@@ -35,16 +35,16 @@ def xbmc_play(url, title):
     xbmc.Player().play(url, listitem)
 
 
-def get_html(url, path="", header=""):
+def get_html(url, header=None, *args):
     print("request url:", url)
     req = request.Request(url)
-    if header != "":
+    if header:
         req.headers = header
 
     r = request.urlopen(req)
     soup = parseHtml(r.read())
-    if path != "":
-        soup = soup.find(path)
+    if len(args) > 0:
+        soup = soup.find(*args)
 
     return str(soup)
 
@@ -64,12 +64,12 @@ def getCategories(url):
 def getVideosUrl(category):
     return None
 
-# response = getHtml("https://www.olevod.com/index.php/vod/detail/id/33014.html")
+
+# response = get_html("https://www.olevod.com/index.php/vod/detail/id/33351.html", None, "div", "playlist_full")
 # print(response)
-# # # reg = r'var url=\'(.*?)\'.*?replace\(\'(.*?)\'.*?\'(.*?)\''
 # reg = r'<li><a class="\d*" href=".*?" onclick="clixx\(this\);" target="_blank">.*?<\/a><\/li>'
 # pattern = re.compile(reg)
 # result = pattern.findall(response)
 # print(result)
-# # url = result[0].replace("\/", "/")
-# # print(url)
+# url = result[0].replace("\/", "/")
+# print(url)

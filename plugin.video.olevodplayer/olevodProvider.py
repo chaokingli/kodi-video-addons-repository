@@ -58,11 +58,8 @@ class OlevodProvider(Provider):
         print("header", self._header)
         result = utils.get_html(url)
 
-        # print result
-        # reg = r'<a href="([-a-zA-Z0-9@:%_\+.~#?&//=]*?)" class=".*?">\n<img.*?data-original="(.*?)".*?alt="(.*?)".*?/>'
         reg = r'<a class=".*?".*?data-original="(.*?)".*?href="([-a-zA-Z0-9@:%_\+.~#?&//=]*?)".*?title="(.*?)">'
         playList = utils.parse(result, reg)
-        print("playlist:", playList)
         for i in playList:
             # imageUrl = self._baseUrl + i[0] + "|Cookie=" + self._cookie_string + "&User-Agent=" + self._user_agent
             imageUrl = self._baseUrl + i[0]
@@ -97,13 +94,7 @@ class OlevodProvider(Provider):
             sstr = self._params["keyword"]
         inputMovieName = quote_plus(sstr)
 
-        xbmc.log('inputMovieName:' + inputMovieName)
-
-        # urlSearch = self._baseUrl + '/index.php?m=vod-search'
         urlSearch = self._baseUrl + '/index.php/vod/search.html?wd=' + inputMovieName
-        # data = 'wd=' + inputMovieName
-        # req = request.Request(urlSearch, inputMovieName, self._header)
-        # searchResponse = self._opener.open(req).read()
         searchResponse = utils.get_html(urlSearch)
         searchReg = r'<h4 class="vodlist_title">.*?<a href="(.*?)".*?><span class="info_right">.*?</span>(.*?)</a>'
         searchResult = utils.parse(searchResponse, searchReg)
@@ -127,10 +118,7 @@ class OlevodProvider(Provider):
         print(url)
         urlDetail = self._baseUrl + url
         print(urlDetail)
-        # req = request.Request(urlDetail, None, self._header)
-        # response = self._opener.open(req).read()
-        response = utils.get_html(urlDetail)
-        # reg = r'<li><a href="(.*?)".*?>(.*?)</a>'
+        response = utils.get_html(urlDetail, None, "div", "playlist_full")
         reg = r'<li><a class="\d*" href="(.*?)" onclick="clixx\(this\);" target="_blank">(.*?)<\/a><\/li>'
         pattern = re.compile(reg)
         result = pattern.findall(response)
@@ -153,16 +141,11 @@ class OlevodProvider(Provider):
         title = self._params['title']
 
         urlPlay = self._baseUrl + url
-        # req = request.Request(urlPlay, None, self._header)
-        # response = str(self._opener.open(req).read())
-        print("urlPlay:", urlPlay)
         response = utils.get_html(urlPlay)
-        # reg = r'var url=\'(.*?)\'.*?replace\(\'(.*?)\'.*?\'(.*?)\''
         reg = r'player_aaaa=.*?\"url\":\"(.*?)\"'
         pattern = re.compile(reg)
         result = pattern.findall(response)
         print("Play Url not formatted:", result)
-        # url = result[0].replace("\/", "/") + "|Origin=https://www.olevod.com&referer=https://www.olevod.com/&accept=*/*"
         url = result[0].replace("\/", "/")
 
         print("play Url: ", url)

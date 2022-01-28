@@ -123,17 +123,6 @@ class Provider():
         listitem = xbmcgui.ListItem(title, path=url)
         listitem.setProperty('inputstream', 'inputstream.adaptive')
         listitem.setProperty('inputstream.adaptive.manifest_type', 'hls')
-        # listitem.setProperty('IsPlayable', 'true')
-        # listitem.addStreamInfo('audio', {'codec': 'aac', 'channels': 2})
-        # listitem.addStreamInfo('audio', {'codec': 'mp4a.40.5', 'channels': 1})
-
-        # listitem.setMimeType('application/vnd.apple.mpegurl')
-        # listitem.setMimeType('application/x-mpegURL')
-        # listitem.setProperty('inputstream', 'inputstream.ffmpegdirect')
-        # listitem.setProperty('inputstream.ffmpegdirect.manifest_type', 'hls')
-        # listitem.setProperty('inputstream.ffmpegdirect.stream_mode', 'timeshift')
-        # listitem.setProperty('inputstream.ffmpegdirect.is_realtime_stream', 'false')
-
         xbmcplugin.setResolvedUrl(self._handle, succeeded=True, listitem=listitem)
 
     def page_url(self, id, pageno):
