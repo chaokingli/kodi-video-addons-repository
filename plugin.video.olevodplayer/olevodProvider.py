@@ -8,11 +8,11 @@ from xbmc import Keyboard
 import utils
 from provider import *
 
-CATEGORIES = {"movie": "movie",
-              "tv": "tv",
-              "variety": "variety",
-              "animation": "animation",
-              "search": "load_search"}
+CATEGORIES = {"movie": "电影",
+              "tv": "连续剧",
+              "variety": "综艺",
+              "animation": "动漫",
+              "search": "搜索"}
 
 headers = {"Host": "www.olevod.com",
            "Cache-Control": "nax-age=0",
@@ -44,9 +44,10 @@ class OlevodProvider(Provider):
 
         for item, value in CATEGORIES.items():
             listitem = xbmcgui.ListItem(item)
+            listitem.setLabel(value)
             isFolder = True
-            url = self.gen_plugin_url({"act": value,
-                                       "name": value,
+            url = self.gen_plugin_url({"act": item,
+                                       "name": item,
                                        # 'Cookie': cookie_string,
                                        "User-Agent": user_agent})
             xbmcplugin.addDirectoryItem(self._handle, url, listitem, isFolder)
@@ -80,9 +81,15 @@ class OlevodProvider(Provider):
     def tv(self):
         self.getMovieList('/index.php/vod/show/id/2.html')
 
+    def variety(self):
+        self.getMovieList('/index.php/vod/show/id/3.html')
+
+    def animation(self):
+        self.getMovieList('/index.php/vod/show/id/4.html')
+
     def search(self):
         if "keyword" not in self._params:
-            kb = Keyboard('', 'Please input Movie or TV Shows name 请输入想要观看的电影或电视剧名称')
+            kb = Keyboard('', '请输入想要观看的电影或电视剧名称')
             kb.doModal()
             if not kb.isConfirmed():
                 return
@@ -100,8 +107,8 @@ class OlevodProvider(Provider):
         searchResult = utils.parse(searchResponse, searchReg)
 
         listitem = xbmcgui.ListItem(
-            '[COLOR FFFF00FF]Search result 当前搜索: [/COLOR][COLOR FFFFFF00](' + sstr + ') [/COLOR][COLOR FF00FFFF] Total 共计：' + str(
-                len(searchResult)) + '[/COLOR]【[COLOR FF00FF00]' + 'Click here for new search 点此输入新搜索内容' + '[/COLOR]】')
+            '[COLOR FFFF00FF]当前搜索: [/COLOR][COLOR FFFFFF00](' + sstr + ') [/COLOR][COLOR FF00FFFF]共计：' + str(
+                len(searchResult)) + '[/COLOR]【[COLOR FF00FF00]' + '点此输入新搜索内容' + '[/COLOR]】')
         xbmcplugin.addDirectoryItem(self._handle, self.gen_plugin_url({"act": "search"}), listitem, True)
         for i in searchResult:
             listitem = xbmcgui.ListItem(i[1])

@@ -51,6 +51,8 @@ class Provider():
                         "play": self.play,
                         "list": self.list,
                         'movie': self.movie,
+                        "variety": self.variety,
+                        "animation": self.animation,
                         'tv': self.tv,
                         "index": self.index}
 
@@ -99,6 +101,12 @@ class Provider():
         pass
 
     def tv(self):
+        pass
+
+    def variety(self):
+        pass
+
+    def animation(self):
         pass
 
     def new_search(self):
